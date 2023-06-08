@@ -3,7 +3,9 @@ import {
   IsEmail,
   IsNotEmpty,
   IsStrongPassword,
+  IsUUID,
 } from 'class-validator';
+import { Game } from 'src/games/entities/game.entity';
 
 export class CreateEmployeeDto {
   @IsNotEmpty()
@@ -17,4 +19,7 @@ export class CreateEmployeeDto {
 
   @IsBoolean()
   isAdmin: boolean;
+
+  @IsUUID()
+  gameId: Game;
 }
