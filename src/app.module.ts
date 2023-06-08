@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Employee } from './employees/entities/employee.entity';
 import { GamesModule } from './games/games.module';
 import { Game } from './games/entities/game.entity';
+import { TicketsModule } from './tickets/tickets.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { Game } from './games/entities/game.entity';
     }),
     EmployeesModule,
     GamesModule,
+    TicketsModule,
   ],
   // controllers: [AppController],
   // providers: [AppService],
