@@ -1,4 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Game } from 'src/games/entities/game.entity';
+import { Ticket } from 'src/tickets/entities/ticket.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Employee {
@@ -16,4 +25,11 @@ export class Employee {
 
   @Column()
   isAdmin: boolean;
+
+  @OneToOne(() => Game)
+  @JoinColumn()
+  game: Game;
+
+  @OneToMany(() => Ticket, (ticket) => ticket.employee)
+  ticked: Ticket[];
 }
