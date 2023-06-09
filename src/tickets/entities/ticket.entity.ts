@@ -1,6 +1,7 @@
 import { Client } from 'src/clients/entities/client.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { Game } from 'src/games/entities/game.entity';
+import { Sale } from 'src/sales/entities/sale.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -19,4 +20,7 @@ export class Ticket {
 
   @ManyToOne(() => Client, (client) => client.id)
   client: Client;
+
+  @ManyToOne(() => Sale, (sale) => sale.id)
+  sale: Sale;
 }
