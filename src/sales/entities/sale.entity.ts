@@ -21,7 +21,7 @@ export class Sale {
 
   // NOTE: This property probably does not need to be included in the dto
   @OneToMany(() => Ticket, (ticket) => ticket.sale)
-  ticket: Ticket;
+  ticket: Ticket[];
 
   // WARN: This need to be implemented in the dto
   @ManyToOne(() => Employee, (employee) => employee.id)
