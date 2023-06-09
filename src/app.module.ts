@@ -7,6 +7,7 @@ import { Game } from './games/entities/game.entity';
 import { TicketsModule } from './tickets/tickets.module';
 import { Ticket } from './tickets/entities/ticket.entity';
 import { ClientsModule } from './clients/clients.module';
+import { SalesModule } from './sales/sales.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ClientsModule } from './clients/clients.module';
     GamesModule,
     TicketsModule,
     ClientsModule,
+    SalesModule,
   ],
   // controllers: [AppController],
   // providers: [AppService],
