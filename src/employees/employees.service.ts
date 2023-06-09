@@ -1,26 +1,49 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Employee } from './entities/employee.entity';
+import { Repository } from 'typeorm';
+import { hash } from 'bcrypt';
 
 @Injectable()
 export class EmployeesService {
-  create(createEmployeeDto: CreateEmployeeDto) {
-    return 'This action adds a new employee';
+  constructor(
+    @InjectRepository(Employee)
+    private employeeRepository: Repository<Employee>,
+  ) {}
+
+  async create(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
+    const employee = new Employee();
+    employee.name = createEmployeeDto.name;
+    employee.email = createEmployeeDto.email;
+    employee.password = await hash(createEmployeeDto.password, 10);
+    employee.isAdmin = createEmployeeDto.isAdmin;
+    employee.game = createEmployeeDto.gameId;
+
+    return await this.employeeRepository.save(employee);
   }
 
-  findAll() {
-    return `This action returns all employees`;
+  async findAll(): Promise<Employee[]> {
+    return await this.employeeRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} employee`;
+  async findOne(id: string): Promise<Employee[]> {
+    return await this.employeeRepository.find({
+      where: {
+        id,
+      },
+    });
   }
 
-  update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
-    return `This action updates a #${id} employee`;
+  async update(id: string, updateEmployeeDto: UpdateEmployeeDto): Promise<any> {
+    return await this.employeeRepository.update(id, updateEmployeeDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} employee`;
+  async remove(id: string): Promise<Employee> {
+    const employee = await this.employeeRepository.findOneBy({
+      id: id,
+    });
+    return await this.employeeRepository.remove(employee);
   }
 }
