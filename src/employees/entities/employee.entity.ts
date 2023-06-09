@@ -1,4 +1,5 @@
 import { Game } from 'src/games/entities/game.entity';
+import { Sale } from 'src/sales/entities/sale.entity';
 import { Ticket } from 'src/tickets/entities/ticket.entity';
 import {
   Column,
@@ -39,7 +40,10 @@ export class Employee {
   @JoinColumn()
   game: Game;
 
-  // NOTE: "ticket" column/property is not included in employee dto
+  // NOTE: Maybe "ticket" column/property is not need to be included in employee dto
   @OneToMany(() => Ticket, (ticket) => ticket.employee)
   ticket: Ticket[];
+
+  @OneToMany(() => Sale, (sale) => sale.employee)
+  sale: Sale[];
 }
