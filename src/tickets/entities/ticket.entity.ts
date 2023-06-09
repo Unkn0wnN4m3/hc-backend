@@ -1,3 +1,4 @@
+import { Client } from 'src/clients/entities/client.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { Game } from 'src/games/entities/game.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
@@ -15,4 +16,7 @@ export class Ticket {
 
   @ManyToOne(() => Game, (game) => game.id)
   game: Game;
+
+  @ManyToOne(() => Client, (client) => client.id)
+  client: Client;
 }
