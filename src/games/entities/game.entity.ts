@@ -13,7 +13,13 @@ export class Game {
   price: number;
 
   @Column()
-  schedule: number;
+  gameStart: number;
+
+  @Column()
+  gameEnd: number;
+
+  @Column()
+  maxEntries: number;
 
   @OneToMany(() => Ticket, (ticket) => ticket.game)
   ticket: Ticket[];
