@@ -18,7 +18,16 @@ export class Employee {
   name: string;
 
   @Column()
+  lastName: string;
+
+  @Column({ unique: true })
   email: string;
+
+  @Column()
+  dni: number;
+
+  @Column()
+  phoneNumber: number;
 
   @Column()
   password: string;
@@ -30,6 +39,7 @@ export class Employee {
   @JoinColumn()
   game: Game;
 
+  // NOTE: "ticket" column/property is not included in employee dto
   @OneToMany(() => Ticket, (ticket) => ticket.employee)
-  ticked: Ticket[];
+  ticket: Ticket[];
 }
