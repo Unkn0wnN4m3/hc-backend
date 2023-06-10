@@ -15,7 +15,9 @@ export class GamesService {
     const game = new Game();
     game.name = createGameDto.name;
     game.price = createGameDto.price;
-    game.schedule = createGameDto.schedule;
+    game.gameStart = createGameDto.gameStart;
+    game.gameEnd = createGameDto.gameEnd;
+    game.maxEntries = createGameDto.maxEntries;
 
     return await this.gameRepository.save(game);
   }

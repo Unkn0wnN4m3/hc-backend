@@ -7,7 +7,15 @@ export class CreateGameDto {
   @IsPositive()
   price: number;
 
-  @IsInt()
   @IsPositive()
-  schedule: number;
+  @IsInt()
+  gameStart: number;
+
+  @IsPositive()
+  @IsInt()
+  gameEnd: number;
+
+  @IsPositive()
+  @IsInt()
+  maxEntries: number;
 }
