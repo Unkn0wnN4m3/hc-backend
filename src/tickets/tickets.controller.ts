@@ -11,7 +11,7 @@ import { TicketsService } from './tickets.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 
-@Controller('tickets')
+@Controller({ path: 'tickets', version: '1' })
 export class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
 
