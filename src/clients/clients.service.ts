@@ -36,7 +36,7 @@ export class ClientsService {
     return this.clientsRepository.update(id, updateClientDto);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: string): Promise<void> {
     const deletedClient = await this.clientsRepository.findOneBy({
       id,
     });
