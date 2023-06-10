@@ -8,13 +8,15 @@ import { TicketsModule } from './tickets/tickets.module';
 import { Ticket } from './tickets/entities/ticket.entity';
 import { ClientsModule } from './clients/clients.module';
 import { SalesModule } from './sales/sales.module';
+import { Sale } from './sales/entities/sale.entity';
+import { Client } from './clients/entities/client.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
-      entities: [Employee, Game, Ticket],
+      entities: [Employee, Game, Ticket, Sale, Client],
       synchronize: true,
     }),
     EmployeesModule,
@@ -23,7 +25,5 @@ import { SalesModule } from './sales/sales.module';
     ClientsModule,
     SalesModule,
   ],
-  // controllers: [AppController],
-  // providers: [AppService],
 })
 export class AppModule {}
