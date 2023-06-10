@@ -10,7 +10,16 @@ export class Ticket {
   id: string;
 
   @Column()
-  clientName: string;
+  hour: number;
+
+  @Column()
+  day: number;
+
+  @Column()
+  month: number;
+
+  @Column()
+  year: number;
 
   @ManyToOne(() => Employee, (employee) => employee.id)
   employee: Employee;
