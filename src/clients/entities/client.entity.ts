@@ -1,5 +1,11 @@
 import { Ticket } from 'src/tickets/entities/ticket.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Client {
@@ -7,7 +13,10 @@ export class Client {
   id: string;
 
   @Column()
-  name: string;
+  fistName: string;
+
+  @Column()
+  lastName: string;
 
   @Column()
   email: string;
@@ -19,6 +28,6 @@ export class Client {
   phoneNumber: number;
 
   // NOTE: This property probably does not need to be included in the dto
-  @ManyToOne(() => Ticket, (ticket) => ticket.client)
-  ticket: Ticket;
+  @OneToMany(() => Ticket, (ticket) => ticket.client)
+  ticket: Ticket[];
 }
