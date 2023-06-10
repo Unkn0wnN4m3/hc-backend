@@ -4,9 +4,8 @@ import { Ticket } from 'src/tickets/entities/ticket.entity';
 import {
   Column,
   Entity,
-  JoinColumn,
+  ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -36,14 +35,15 @@ export class Employee {
   @Column()
   isAdmin: boolean;
 
-  @OneToOne(() => Game)
-  @JoinColumn()
+  // NOTE: At least one game needs to be asigned to a new employee
+  @ManyToOne(() => Game, (game) => game.id)
   game: Game;
 
   // NOTE: Maybe "ticket" column/property is not need to be included in employee dto
   @OneToMany(() => Ticket, (ticket) => ticket.employee)
   ticket: Ticket[];
 
+  // NOTE: Maybe "sale" column/property is not need to be included in employee dto
   @OneToMany(() => Sale, (sale) => sale.employee)
   sale: Sale[];
 }

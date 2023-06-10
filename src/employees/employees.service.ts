@@ -16,8 +16,11 @@ export class EmployeesService {
   async create(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
     const employee = new Employee();
     employee.name = createEmployeeDto.name;
+    employee.lastName = createEmployeeDto.lastName;
     employee.email = createEmployeeDto.email;
     employee.password = await hash(createEmployeeDto.password, 10);
+    employee.dni = createEmployeeDto.dni;
+    employee.phoneNumber = createEmployeeDto.phoneNumber;
     employee.isAdmin = createEmployeeDto.isAdmin;
     employee.game = createEmployeeDto.gameId;
 
@@ -29,10 +32,8 @@ export class EmployeesService {
   }
 
   async findOne(id: string): Promise<Employee[]> {
-    return await this.employeeRepository.find({
-      where: {
-        id,
-      },
+    return await this.employeeRepository.findBy({
+      id,
     });
   }
 

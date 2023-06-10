@@ -1,6 +1,8 @@
 import {
   IsBoolean,
   IsEmail,
+  IsIn,
+  IsInt,
   IsNotEmpty,
   IsStrongPassword,
   IsUUID,
@@ -11,11 +13,20 @@ export class CreateEmployeeDto {
   @IsNotEmpty()
   name: string;
 
+  @IsNotEmpty()
+  lastName: string;
+
   @IsEmail()
   email: string;
 
   @IsStrongPassword()
   password: string;
+
+  @IsNotEmpty()
+  dni: number;
+
+  @IsInt()
+  phoneNumber: number;
 
   @IsBoolean()
   isAdmin: boolean;

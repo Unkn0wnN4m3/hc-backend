@@ -1,3 +1,4 @@
+import { Employee } from 'src/employees/entities/employee.entity';
 import { Ticket } from 'src/tickets/entities/ticket.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -23,4 +24,7 @@ export class Game {
 
   @OneToMany(() => Ticket, (ticket) => ticket.game)
   ticket: Ticket[];
+
+  @OneToMany(() => Employee, (employee) => employee.game)
+  employee: Employee[];
 }
