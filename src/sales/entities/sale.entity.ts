@@ -17,6 +17,12 @@ export class Sale {
   day: number;
 
   @Column()
+  month: number;
+
+  @Column()
+  year: number;
+
+  @Column()
   hour: number;
 
   // NOTE: This property probably does not need to be included in the dto
