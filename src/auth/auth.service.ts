@@ -29,7 +29,7 @@ export class AuthService {
       throw new HttpException('Incorrect password/user', HttpStatus.FORBIDDEN);
 
     const payload = {
-      id: findUser.id,
+      sub: findUser.id,
       email: findUser.email,
     };
     const token = this.jwtService.sign(payload);
