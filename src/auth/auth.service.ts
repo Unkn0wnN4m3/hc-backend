@@ -51,23 +51,17 @@ export class AuthService {
     user.password = await hash(registerAuthDto.password, 10);
     user.dni = registerAuthDto.dni;
     user.phoneNumber = registerAuthDto.phoneNumber;
-    user.isAdmin = registerAuthDto.isAdmin || false;
+    user.roles = registerAuthDto.roles;
 
-    try {
-      const newUser = await this.userRepository.save(user);
-      const { password, ...result } = newUser;
-      return result;
-    } catch (error) {
-      throw new HttpException(
-        {
-          status: HttpStatus.FORBIDDEN,
-          error: 'User already exists',
-        },
-        HttpStatus.FORBIDDEN,
-        {
-          cause: error,
-        },
-      );
-    }
+    const userExists = await this.userRepository.findOneBy({
+      email: user.email,
+    });
+
+    if (userExists)
+      throw new HttpException('User already exists', HttpStatus.FORBIDDEN);
+
+    const newUser = await this.userRepository.save(user);
+    const { password, ...result } = newUser;
+    return result;
   }
 }
