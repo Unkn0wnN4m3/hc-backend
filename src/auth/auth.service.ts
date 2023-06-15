@@ -51,7 +51,6 @@ export class AuthService {
     user.password = await hash(registerAuthDto.password, 10);
     user.dni = registerAuthDto.dni;
     user.phoneNumber = registerAuthDto.phoneNumber;
-    user.roles = registerAuthDto.roles;
 
     const userExists = await this.userRepository.findOneBy({
       email: user.email,

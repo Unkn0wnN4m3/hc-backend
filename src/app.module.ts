@@ -15,10 +15,13 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db.sqlite',
+      type: 'mysql',
+      database: 'mysql',
+      host: 'localhost',
+      username: 'root',
+      password: 'super-secret',
       entities: [Employee, Game, Ticket, Sale, Client],
-      synchronize: true,
+      // synchronize: true,
     }),
     EmployeesModule,
     GamesModule,
