@@ -21,7 +21,7 @@ import { AuthModule } from './auth/auth.module';
       username: 'root',
       password: 'super-secret',
       entities: [Employee, Game, Ticket, Sale, Client],
-      // synchronize: true,
+      synchronize: true,
     }),
     EmployeesModule,
     GamesModule,

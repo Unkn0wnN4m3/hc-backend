@@ -8,6 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Role } from './role.enum';
 
 @Entity()
 export class Employee {
@@ -32,8 +33,12 @@ export class Employee {
   @Column()
   password: string;
 
-  @Column()
-  isAdmin: boolean;
+  @Column({
+    type: 'enum',
+    enum: [Role.Admin, Role.User],
+    default: [Role.User],
+  })
+  roles: Role[];
 
   // NOTE: At least one game needs to be asigned to a new employee
   @ManyToOne(() => Game, (game) => game.id)

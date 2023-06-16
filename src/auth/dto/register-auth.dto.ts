@@ -7,6 +7,7 @@ import {
   IsOptional,
   IsPositive,
 } from 'class-validator';
+import { Role } from 'src/employees/entities/role.enum';
 
 export class RegisterAuthDto extends PartialType(LoginAuthDto) {
   @IsNotEmpty()
@@ -23,7 +24,6 @@ export class RegisterAuthDto extends PartialType(LoginAuthDto) {
   @IsInt()
   phoneNumber: number;
 
-  @IsBoolean()
   @IsOptional()
-  isAdmin: boolean;
+  roles: Role[];
 }

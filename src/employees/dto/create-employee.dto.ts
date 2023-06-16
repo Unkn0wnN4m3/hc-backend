@@ -1,13 +1,12 @@
 import {
-  IsBoolean,
   IsEmail,
-  IsIn,
   IsInt,
   IsNotEmpty,
   IsStrongPassword,
   IsUUID,
 } from 'class-validator';
 import { Game } from 'src/games/entities/game.entity';
+import { Role } from '../entities/role.enum';
 
 export class CreateEmployeeDto {
   @IsNotEmpty()
@@ -28,8 +27,8 @@ export class CreateEmployeeDto {
   @IsInt()
   phoneNumber: number;
 
-  @IsBoolean()
-  isAdmin: boolean;
+  @IsNotEmpty()
+  roles: Role[];
 
   @IsUUID()
   gameId: Game;

@@ -31,6 +31,7 @@ export class AuthService {
     const payload = {
       sub: findUser.id,
       email: findUser.email,
+      roles: findUser.roles,
     };
     const token = this.jwtService.sign(payload);
     const data = {
@@ -51,6 +52,7 @@ export class AuthService {
     user.password = await hash(registerAuthDto.password, 10);
     user.dni = registerAuthDto.dni;
     user.phoneNumber = registerAuthDto.phoneNumber;
+    user.roles = registerAuthDto.roles;
 
     const userExists = await this.userRepository.findOneBy({
       email: user.email,

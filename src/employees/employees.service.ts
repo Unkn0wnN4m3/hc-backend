@@ -21,7 +21,7 @@ export class EmployeesService {
     employee.password = await hash(createEmployeeDto.password, 10);
     employee.dni = createEmployeeDto.dni;
     employee.phoneNumber = createEmployeeDto.phoneNumber;
-    employee.isAdmin = createEmployeeDto.isAdmin;
+    employee.roles = createEmployeeDto.roles;
     employee.game = createEmployeeDto.gameId;
 
     return await this.employeeRepository.save(employee);
