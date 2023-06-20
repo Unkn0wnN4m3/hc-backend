@@ -1,0 +1,40 @@
+services:
+  hackacodedb:
+    image: mysql:8.0
+    container_name: hackacodedb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysecretpassword
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --init-file /docker-entrypoint-initdb.d/init.sql
+    ports:
+      - '3306:3306'
+    networks:
+      - red_hackacode
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'mysql -uroot -pmysecretpassword -e \"USE hackacode;\"'"]
+      interval: 1m
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+  app:
+    container_name: app
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3000:3000'
+    command: npm run start:dev
+    networks:
+      - red_hackacode
+    depends_on:
+      hackacodedb:
+        condition: service_healthy
+
+networks:
+  red_hackacode:
+    driver: bridge

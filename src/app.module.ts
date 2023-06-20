@@ -11,17 +11,18 @@ import { SalesModule } from './sales/sales.module';
 import { Sale } from './sales/entities/sale.entity';
 import { Client } from './clients/entities/client.entity';
 import { AuthModule } from './auth/auth.module';
-
+/* cambiar host: al nombre del servicio en el docker compose del base de datso */
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      database: 'mysql',
       host: 'localhost',
+      port: 3306,
       username: 'root',
-      password: 'super-secret',
+      password: 'mysecretpassword',
+      database: 'hackacode',
       entities: [Employee, Game, Ticket, Sale, Client],
-      synchronize: true,
+      // synchronize: true,
     }),
     EmployeesModule,
     GamesModule,
