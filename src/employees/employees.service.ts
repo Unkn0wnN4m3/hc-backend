@@ -4,27 +4,43 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Employee } from './entities/employee.entity';
 import { Repository } from 'typeorm';
-import { hash } from 'bcrypt';
+//import { hash } from 'bcrypt';
+import { Game } from 'src/games/entities/game.entity';
+import { GamesService } from 'src/games/games.service';
 
 @Injectable()
 export class EmployeesService {
   constructor(
     @InjectRepository(Employee)
     private employeeRepository: Repository<Employee>,
+    @InjectRepository(Game) private gameRepository: Repository<Game>,
+    private readonly gameService: GamesService,
   ) {}
 
   async create(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
-    const employee = new Employee();
-    employee.name = createEmployeeDto.name;
-    employee.lastName = createEmployeeDto.lastName;
-    employee.email = createEmployeeDto.email;
-    employee.password = await hash(createEmployeeDto.password, 10);
-    employee.dni = createEmployeeDto.dni;
-    employee.phoneNumber = createEmployeeDto.phoneNumber;
-    employee.roles = createEmployeeDto.roles;
-    employee.game = createEmployeeDto.gameId;
+    try {
+      const game = await this.gameService.findOneGame(createEmployeeDto.gameId);
+      if (!game) {
+        console.log('no encotro usuario,game: ' + game);
+      }
 
-    return await this.employeeRepository.save(employee);
+      const employee = new Employee();
+      employee.name = createEmployeeDto.name;
+      employee.lastName = createEmployeeDto.lastName;
+      employee.email = createEmployeeDto.email;
+      employee.password = createEmployeeDto.password;
+      // await hash(createEmployeeDto.password, 10);
+      employee.dni = createEmployeeDto.dni;
+      employee.phoneNumber = createEmployeeDto.phoneNumber;
+      employee.roles = createEmployeeDto.roles;
+      employee.game = game;
+
+      /* Funcion hash contraseña*/
+
+      return await this.employeeRepository.save(employee);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async findAll(): Promise<Employee[]> {

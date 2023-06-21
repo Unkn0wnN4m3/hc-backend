@@ -1,13 +1,13 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { LoginAuthDto } from './login-auth.dto';
 import {
-  IsBoolean,
+  IsEnum,
   IsInt,
   IsNotEmpty,
   IsOptional,
   IsPositive,
 } from 'class-validator';
-import { Role } from 'src/employees/entities/role.enum';
+import { ROLES } from 'src/employees/entities/role.enum';
 
 export class RegisterAuthDto extends PartialType(LoginAuthDto) {
   @IsNotEmpty()
@@ -25,5 +25,6 @@ export class RegisterAuthDto extends PartialType(LoginAuthDto) {
   phoneNumber: number;
 
   @IsOptional()
-  roles: Role[];
+  @IsEnum(ROLES)
+  roles: ROLES;
 }

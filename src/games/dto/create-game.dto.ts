@@ -1,20 +1,18 @@
-import { IsInt, IsNotEmpty, IsPositive } from 'class-validator';
+import { IsInt, IsNotEmpty, IsPositive, IsString } from 'class-validator';
 
 export class CreateGameDto {
   @IsNotEmpty()
   name: string;
 
+  @IsNotEmpty()
   @IsPositive()
   price: number;
 
-  @IsPositive()
-  @IsInt()
-  gameStart: number;
+  @IsNotEmpty()
+  @IsString()
+  schedule: string;
 
-  @IsPositive()
-  @IsInt()
-  gameEnd: number;
-
+  @IsNotEmpty()
   @IsPositive()
   @IsInt()
   maxEntries: number;

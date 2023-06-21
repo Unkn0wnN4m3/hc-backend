@@ -1,6 +1,6 @@
-import { Game } from 'src/games/entities/game.entity';
-import { Sale } from 'src/sales/entities/sale.entity';
-import { Ticket } from 'src/tickets/entities/ticket.entity';
+import { Game } from '../../games/entities/game.entity';
+import { Sale } from '../../sales/entities/sale.entity';
+import { Ticket } from '../../tickets/entities/ticket.entity';
 import {
   Column,
   Entity,
@@ -8,9 +8,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Role } from './role.enum';
+import { ROLES } from './role.enum';
 
-@Entity()
+@Entity({ name: 'employees' })
 export class Employee {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -35,10 +35,10 @@ export class Employee {
 
   @Column({
     type: 'enum',
-    enum: [Role.Admin, Role.User],
-    default: [Role.User],
+    enum: ROLES,
+    default: ROLES.USER,
   })
-  roles: Role[];
+  roles: ROLES;
 
   // NOTE: At least one game needs to be asigned to a new employee
   @ManyToOne(() => Game, (game) => game.id)

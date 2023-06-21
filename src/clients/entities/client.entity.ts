@@ -1,13 +1,7 @@
-import { Ticket } from 'src/tickets/entities/ticket.entity';
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Ticket } from '../../tickets/entities/ticket.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'clients' })
 export class Client {
   @PrimaryGeneratedColumn('uuid')
   id: string;

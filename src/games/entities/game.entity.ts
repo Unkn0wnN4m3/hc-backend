@@ -1,8 +1,8 @@
-import { Employee } from 'src/employees/entities/employee.entity';
-import { Ticket } from 'src/tickets/entities/ticket.entity';
+import { Employee } from '../../employees/entities/employee.entity';
+import { Ticket } from '../../tickets/entities/ticket.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'games' })
 export class Game {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -14,10 +14,7 @@ export class Game {
   price: number;
 
   @Column()
-  gameStart: number;
-
-  @Column()
-  gameEnd: number;
+  schedule: string;
 
   @Column()
   maxEntries: number;

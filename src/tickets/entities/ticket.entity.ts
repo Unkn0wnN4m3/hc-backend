@@ -1,10 +1,10 @@
-import { Client } from 'src/clients/entities/client.entity';
-import { Employee } from 'src/employees/entities/employee.entity';
-import { Game } from 'src/games/entities/game.entity';
-import { Sale } from 'src/sales/entities/sale.entity';
+import { Client } from '../../clients/entities/client.entity';
+import { Employee } from '../../employees/entities/employee.entity';
+import { Game } from '../../games/entities/game.entity';
+import { Sale } from '../../sales/entities/sale.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'tickets' })
 export class Ticket {
   @PrimaryGeneratedColumn('uuid')
   id: string;

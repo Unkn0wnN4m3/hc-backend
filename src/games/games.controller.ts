@@ -16,8 +16,8 @@ export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
 
   @Post()
-  create(@Body() createGameDto: CreateGameDto) {
-    return this.gamesService.create(createGameDto);
+  async create(@Body() body: CreateGameDto) {
+    return await this.gamesService.create(body);
   }
 
   @Get()
@@ -27,7 +27,7 @@ export class GamesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.gamesService.findOne(id);
+    return this.gamesService.findOneGame(id);
   }
 
   @Patch(':id')

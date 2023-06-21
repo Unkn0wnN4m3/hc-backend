@@ -1,5 +1,5 @@
-import { Employee } from 'src/employees/entities/employee.entity';
-import { Ticket } from 'src/tickets/entities/ticket.entity';
+import { Employee } from '../../employees/entities/employee.entity';
+import { Ticket } from '../../tickets/entities/ticket.entity';
 import {
   Column,
   Entity,
@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'sales' })
 export class Sale {
   @PrimaryGeneratedColumn('uuid')
   id: string;

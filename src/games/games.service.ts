@@ -11,22 +11,26 @@ export class GamesService {
     @InjectRepository(Game) private gameRepository: Repository<Game>,
   ) {}
 
-  async create(createGameDto: CreateGameDto): Promise<Game> {
-    const game = new Game();
-    game.name = createGameDto.name;
-    game.price = createGameDto.price;
-    game.gameStart = createGameDto.gameStart;
-    game.gameEnd = createGameDto.gameEnd;
-    game.maxEntries = createGameDto.maxEntries;
-
-    return await this.gameRepository.save(game);
+  async create(body: CreateGameDto): Promise<Game> {
+    try {
+      /*
+      const game = new Game();
+      game.name = createGameDto.name;
+      game.price = createGameDto.price;
+      game.schedule = createGameDto.schedule;
+      game.maxEntries = createGameDto.maxEntries;
+*/
+      return await this.gameRepository.save(body);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async findAll(): Promise<Game[]> {
     return await this.gameRepository.find();
   }
 
-  async findOne(id: string): Promise<Game> {
+  async findOneGame(id: string): Promise<Game> {
     return await this.gameRepository.findOneBy({
       id,
     });

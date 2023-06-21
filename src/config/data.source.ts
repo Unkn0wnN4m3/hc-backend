@@ -1,9 +1,9 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Client } from 'src/clients/entities/client.entity';
-import { Employee } from 'src/employees/entities/employee.entity';
-import { Game } from 'src/games/entities/game.entity';
-import { Sale } from 'src/sales/entities/sale.entity';
-import { Ticket } from 'src/tickets/entities/ticket.entity';
+import { Client } from '../clients/entities/client.entity';
+import { Employee } from '../employees/entities/employee.entity';
+import { Game } from '../games/entities/game.entity';
+import { Sale } from '../sales/entities/sale.entity';
+import { Ticket } from '../tickets/entities/ticket.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
@@ -21,6 +21,7 @@ export const DataSourceConfig: DataSourceOptions = {
   password: configService.get('DB_PASSWORD'),
   database: configService.get('DB_NAME'),
   entities: [Employee, Game, Ticket, Sale, Client],
+  migrations: ['../../migrations/1687328021855-init.ts'],
   synchronize: false,
   migrationsRun: false,
   logging: false,

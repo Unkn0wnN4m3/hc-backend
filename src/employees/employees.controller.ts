@@ -12,9 +12,11 @@ import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+/*
 import { HasRoles } from './entities/roles.decorator';
 import { Role } from './entities/role.enum';
 import { RolesGuard } from 'src/auth/roles.guard';
+*/
 
 @Controller({ path: 'employees', version: '1' })
 export class EmployeesController {
@@ -32,8 +34,9 @@ export class EmployeesController {
   }
 
   // NOTE: Only a user with "Admin" role can access to this endpoint
+  /* TODO REIMPLMENTAR
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @HasRoles(Role.Admin)
+  @HasRoles(Role.Admin)*/
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.employeesService.findOne(id);
