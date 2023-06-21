@@ -5,6 +5,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: mysecretpassword
+      MYSQL_USER: userdb
+      MYSQL_PASSWORD: userpassword
+      MYSQL_DATABASE: hackacode
     volumes:
       - ./persistent:/var/lib/mysql
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
