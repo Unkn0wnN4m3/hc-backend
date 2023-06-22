@@ -13,13 +13,6 @@ export class GamesService {
 
   async create(body: CreateGameDto): Promise<Game> {
     try {
-      /*
-      const game = new Game();
-      game.name = createGameDto.name;
-      game.price = createGameDto.price;
-      game.schedule = createGameDto.schedule;
-      game.maxEntries = createGameDto.maxEntries;
-*/
       return await this.gameRepository.save(body);
     } catch (error) {
       throw new Error(error);

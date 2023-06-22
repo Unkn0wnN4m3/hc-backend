@@ -25,3 +25,19 @@ import { DataSourceConfig } from './config/data.source';
   ],
 })
 export class AppModule {}
+
+/* Para las ventas. Opcion 1:
+  Opcion 2:
+  Crear venta al principio, retornar ID de la venta,
+  por cada ticket creado (al confirmar pago), guardarlo con el id de la 
+  venta.
+  Al finalizar venta crearle la fecha y hora, crear nueva venta, retornar nuevo ID
+  En front, si no existe el id de la venta, enviar solicitud automaticamente-
+
+    Crear tickets (1 o muchos a la vez), columna "sale" en null.
+  Por cada ticket/s retornar el ID del ticket.
+  Al completar, enviar los IDs de los tickets crear la venta,
+  y asignar a todos los tickets el id de la venta.
+  Contra hay que buscar todos los tickets.
+
+/*

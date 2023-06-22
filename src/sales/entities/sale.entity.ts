@@ -2,6 +2,7 @@ import { Employee } from '../../employees/entities/employee.entity';
 import { Ticket } from '../../tickets/entities/ticket.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
@@ -13,17 +14,14 @@ export class Sale {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  day: number;
+  @CreateDateColumn({
+    type: 'timestamp',
+  })
+  createdAt: Date;
 
-  @Column()
-  month: number;
-
-  @Column()
-  year: number;
-
-  @Column()
-  hour: number;
+  // ESTA ES LA HORA EN LA QUE SE REALIZO LA VENTA TOTAL
+  @Column({ type: 'timestamp', nullable: true })
+  completedAt: Date;
 
   // NOTE: This property probably does not need to be included in the dto
   @OneToMany(() => Ticket, (ticket) => ticket.sale)

@@ -2,7 +2,7 @@ import { IsEmail, IsInt, IsNotEmpty, IsPositive, Max } from 'class-validator';
 
 export class CreateClientDto {
   @IsNotEmpty()
-  firstName: string;
+  fistName: string;
 
   @IsNotEmpty()
   lastName: string;

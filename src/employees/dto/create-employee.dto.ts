@@ -8,7 +8,7 @@ import {
   IsUUID,
 } from 'class-validator';
 import { Game } from 'src/games/entities/game.entity';
-//import { Game } from 'src/games/entities/game.entity';
+
 import { ROLES } from '../entities/role.enum';
 
 export class CreateEmployeeDto {
@@ -39,5 +39,9 @@ export class CreateEmployeeDto {
   roles: ROLES;
 
   @IsUUID()
+  gameId: Game;
+  /*
+  @IsUUID()
   gameId: string;
+  */
 }

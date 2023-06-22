@@ -19,7 +19,7 @@ export class EmployeesService {
 
   async create(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
     try {
-      const game = await this.gameService.findOneGame(createEmployeeDto.gameId);
+      /* const game = await this.gameService.findOneGame(createEmployeeDto.gameId);
       if (!game) {
         console.log('no encotro usuario,game: ' + game);
       }
@@ -34,10 +34,10 @@ export class EmployeesService {
       employee.phoneNumber = createEmployeeDto.phoneNumber;
       employee.roles = createEmployeeDto.roles;
       employee.game = game;
-
+*/
       /* Funcion hash contraseña*/
 
-      return await this.employeeRepository.save(employee);
+      return await this.employeeRepository.save(createEmployeeDto);
     } catch (error) {
       throw new Error(error);
     }

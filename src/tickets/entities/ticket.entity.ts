@@ -9,18 +9,17 @@ export class Ticket {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  hour: number;
+  //HORA COMO STRING, ES LA HORA DEL JUEGO, NO DEL TICKET
+  @Column({ type: 'time' })
+  hour: string;
+  //tuEntidad.hora = '12:30
+  //AGREAR HORA DE EMISION DEL TICKET??
 
-  @Column()
-  day: number;
-
-  @Column()
-  month: number;
-
-  @Column()
-  year: number;
-
+  //DAY, MONT Y DATE EN UN SOLO TIPO FECHA
+  @Column({ type: 'date' })
+  date: Date;
+  //DAY, MONT Y DATE EN UN SOLO TIPO FECHA
+  //PONER RELACION SOLO EN LA VENTA?
   @ManyToOne(() => Employee, (employee) => employee.id)
   employee: Employee;
 

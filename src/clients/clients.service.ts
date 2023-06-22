@@ -12,14 +12,15 @@ export class ClientsService {
   ) {}
 
   async create(createClientDto: CreateClientDto): Promise<Client> {
+    /*
     const client = new Client();
     client.fistName = createClientDto.firstName;
     client.lastName = createClientDto.lastName;
     client.email = createClientDto.email;
     client.dni = createClientDto.dni;
     client.phoneNumber = createClientDto.phoneNumber;
-
-    return await this.clientsRepository.save(client);
+*/
+    return await this.clientsRepository.save(createClientDto);
   }
 
   async findAll(): Promise<Client[]> {

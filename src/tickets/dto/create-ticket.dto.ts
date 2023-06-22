@@ -1,41 +1,27 @@
-import { IsInt, IsUUID, Max, Min } from 'class-validator';
-import { Client } from 'src/clients/entities/client.entity';
-import { Employee } from 'src/employees/entities/employee.entity';
-import { Game } from 'src/games/entities/game.entity';
-import { Sale } from 'src/sales/entities/sale.entity';
-
-const todaysDate = new Date();
-const currentYear = todaysDate.getFullYear();
+import { IsDate, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateTicketDto {
-  @IsInt()
-  @Min(1)
-  @Max(24)
-  hour: number;
+  @IsNotEmpty()
+  @IsString()
+  hour: string;
 
-  @IsInt()
-  @Min(1)
-  @Max(30)
-  day: number;
+  @IsNotEmpty()
+  @IsDate()
+  date: Date;
 
-  @IsInt()
-  @Min(1)
-  @Max(12)
-  month: number;
-
-  @IsInt()
-  @Min(currentYear)
-  year: number;
-
+  @IsNotEmpty()
   @IsUUID()
-  clientId: Client;
+  clientId: string;
 
+  @IsNotEmpty()
   @IsUUID()
-  saleId: Sale;
+  saleId: string;
 
+  @IsNotEmpty()
   @IsUUID()
-  employeeId: Employee;
+  employeeId: string;
 
+  @IsNotEmpty()
   @IsUUID()
-  gameId: Game;
+  gameId: string;
 }

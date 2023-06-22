@@ -8,17 +8,15 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class SalesService {
   constructor(
-    @InjectRepository(Sale) private salesRepository: Repository<Sale>,
+    @InjectRepository(Sale) private readonly salesRepository: Repository<Sale>,
   ) {}
 
   async create(createSaleDto: CreateSaleDto): Promise<Sale> {
-    const sale = new Sale();
-    sale.day = createSaleDto.day;
-    sale.month = createSaleDto.month;
-    sale.year = createSaleDto.year;
-    sale.employee = sale.employee;
-
-    return await this.salesRepository.save(sale);
+    try {
+      return await this.salesRepository.save(createSaleDto);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async findAll(): Promise<Sale[]> {
@@ -31,8 +29,10 @@ export class SalesService {
     });
   }
 
-  async update(id: string, updateSaleDto: UpdateSaleDto) {
-    return await this.salesRepository.update(id, updateSaleDto);
+  async update(updateSaleDto: UpdateSaleDto) {
+    return await this.salesRepository.update(updateSaleDto.id, {
+      completedAt: new Date(),
+    });
   }
 
   async remove(id: string): Promise<void> {

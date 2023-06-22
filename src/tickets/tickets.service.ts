@@ -4,7 +4,7 @@ import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Ticket } from './entities/ticket.entity';
 import { Repository } from 'typeorm';
-
+// CUIDADO QUE DEVULEVE VALORES, PERO NO SE USAN
 @Injectable()
 export class TicketsService {
   constructor(
@@ -12,17 +12,7 @@ export class TicketsService {
   ) {}
 
   async create(createTicketDto: CreateTicketDto): Promise<Ticket> {
-    const ticket = new Ticket();
-    ticket.hour = createTicketDto.hour;
-    ticket.day = createTicketDto.day;
-    ticket.month = createTicketDto.month;
-    ticket.year = createTicketDto.year;
-    ticket.client = createTicketDto.clientId;
-    ticket.sale = createTicketDto.saleId;
-    ticket.employee = createTicketDto.employeeId;
-    ticket.game = createTicketDto.gameId;
-
-    return await this.ticketsRepository.save(ticket);
+    return await this.ticketsRepository.save(createTicketDto);
   }
 
   async findAll(): Promise<Ticket[]> {

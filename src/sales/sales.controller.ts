@@ -16,9 +16,16 @@ export class SalesController {
   constructor(private readonly salesService: SalesService) {}
 
   @Post()
-  create(@Body() createSaleDto: CreateSaleDto) {
-    return this.salesService.create(createSaleDto);
+  async create(@Body() createSaleDto: CreateSaleDto) {
+    return await this.salesService.create(createSaleDto);
   }
+
+  @Patch()
+  update(@Body() updateSaleDto: UpdateSaleDto) {
+    return this.salesService.update(updateSaleDto);
+  }
+  // ENDPOINT QUE RECIBA EL ID DE LA VENTA, QUE LE ASIGNE EL TIMESTAMP FINAL PARA TERMINARLO
+  // POSIBLEMENTE DEVOLVER OTRO ID, O LLAMAR AL CREATE
 
   @Get()
   findAll() {
@@ -28,11 +35,6 @@ export class SalesController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.salesService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSaleDto: UpdateSaleDto) {
-    return this.salesService.update(id, updateSaleDto);
   }
 
   @Delete(':id')
