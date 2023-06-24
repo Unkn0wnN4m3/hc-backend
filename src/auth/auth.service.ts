@@ -35,7 +35,7 @@ export class AuthService {
     };
     const token = this.jwtService.sign(payload);
     const data = {
-      name: findUser.name,
+      firstName: findUser.firstName,
       lastName: findUser.lastName,
       AuthToken: token,
     };
@@ -45,7 +45,7 @@ export class AuthService {
 
   async registerUser(registerAuthDto: RegisterAuthDto) {
     const user = new Employee();
-    user.name = registerAuthDto.firstName;
+    user.firstName = registerAuthDto.firstName;
     user.lastName = registerAuthDto.lastName;
     user.email = registerAuthDto.email;
     // NOTE: Hash password before saving

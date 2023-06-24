@@ -20,8 +20,8 @@ export class Sale {
   createdAt: Date;
 
   // ESTA ES LA HORA EN LA QUE SE REALIZO LA VENTA TOTAL
-  @Column({ type: 'timestamp', nullable: true })
-  completedAt: Date;
+  @Column({ type: 'time', nullable: true })
+  completedAt: string;
 
   // NOTE: This property probably does not need to be included in the dto
   @OneToMany(() => Ticket, (ticket) => ticket.sale)

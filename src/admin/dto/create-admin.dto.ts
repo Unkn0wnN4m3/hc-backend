@@ -5,12 +5,12 @@ import {
   IsNotEmpty,
   IsString,
   IsStrongPassword,
-  IsUUID,
 } from 'class-validator';
+import { ROLES } from 'src/const/role.enum';
 
-import { ROLES } from '../../const/role.enum';
+// MOVER ROLES A CONSTANTES
 
-export class CreateEmployeeDto {
+export class CreateAdminDto {
   @IsNotEmpty()
   @IsString()
   firstName: string;
@@ -36,7 +36,4 @@ export class CreateEmployeeDto {
   @IsNotEmpty()
   @IsEnum(ROLES)
   roles: ROLES;
-
-  @IsUUID()
-  gameId: string;
 }

@@ -7,21 +7,21 @@ export class CreateTicketDto {
 
   @IsNotEmpty()
   @IsDate()
-  date: Date;
+  date: string;
 
   @IsNotEmpty()
   @IsUUID()
-  clientId: string;
+  client: string;
 
   @IsNotEmpty()
   @IsUUID()
-  saleId: string;
+  sale: string;
 
   @IsNotEmpty()
   @IsUUID()
-  employeeId: string;
+  employee: string;
 
   @IsNotEmpty()
   @IsUUID()
-  gameId: string;
+  game: string;
 }

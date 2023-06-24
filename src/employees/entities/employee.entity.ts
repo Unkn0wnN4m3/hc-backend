@@ -8,7 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ROLES } from './role.enum';
+import { ROLES } from '../../const/role.enum';
 
 @Entity({ name: 'employees' })
 export class Employee {
@@ -16,7 +16,7 @@ export class Employee {
   id: string;
 
   @Column()
-  name: string;
+  firstName: string;
 
   @Column()
   lastName: string;
@@ -36,7 +36,6 @@ export class Employee {
   @Column({
     type: 'enum',
     enum: ROLES,
-    default: ROLES.USER,
   })
   roles: ROLES;
 

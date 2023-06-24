@@ -1,18 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Ticket } from './entities/ticket.entity';
 import { Repository } from 'typeorm';
+import { CreateTicketDto } from './dto/create-ticket.dto';
 // CUIDADO QUE DEVULEVE VALORES, PERO NO SE USAN
 @Injectable()
 export class TicketsService {
   constructor(
-    @InjectRepository(Ticket) private ticketsRepository: Repository<Ticket>,
+    @InjectRepository(Ticket)
+    private readonly ticketsRepository: Repository<Ticket>,
   ) {}
 
-  async create(createTicketDto: CreateTicketDto): Promise<Ticket> {
-    return await this.ticketsRepository.save(createTicketDto);
+  async createTicket(createTicketDto: CreateTicketDto): Promise<Ticket> {
+    try {
+      return await this.ticketsRepository.save(createTicketDto);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async findAll(): Promise<Ticket[]> {

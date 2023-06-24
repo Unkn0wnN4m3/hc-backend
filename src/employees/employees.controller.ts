@@ -27,7 +27,7 @@ export class EmployeesController {
     return this.employeesService.create(createEmployeeDto);
   }
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.employeesService.findAll();

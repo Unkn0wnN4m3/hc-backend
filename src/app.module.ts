@@ -8,6 +8,7 @@ import { SalesModule } from './sales/sales.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { DataSourceConfig } from './config/data.source';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { DataSourceConfig } from './config/data.source';
     ClientsModule,
     SalesModule,
     AuthModule,
+    AdminModule,
   ],
 })
 export class AppModule {}
@@ -40,4 +42,4 @@ export class AppModule {}
   y asignar a todos los tickets el id de la venta.
   Contra hay que buscar todos los tickets.
 
-/*
+*/

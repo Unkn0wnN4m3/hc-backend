@@ -7,7 +7,7 @@ import {
   IsOptional,
   IsPositive,
 } from 'class-validator';
-import { ROLES } from 'src/employees/entities/role.enum';
+import { ROLES } from 'src/const/role.enum';
 
 export class RegisterAuthDto extends PartialType(LoginAuthDto) {
   @IsNotEmpty()

@@ -1,3 +1,4 @@
+import { ROLES } from 'src/const/role.enum';
 import { Ticket } from '../../tickets/entities/ticket.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -7,7 +8,7 @@ export class Client {
   id: string;
 
   @Column()
-  fistName: string;
+  firstName: string;
 
   @Column()
   lastName: string;
@@ -20,6 +21,12 @@ export class Client {
 
   @Column()
   phoneNumber: number;
+
+  @Column({
+    type: 'enum',
+    enum: ROLES,
+  })
+  roles: ROLES;
 
   // NOTE: This property probably does not need to be included in the dto
   @OneToMany(() => Ticket, (ticket) => ticket.client)

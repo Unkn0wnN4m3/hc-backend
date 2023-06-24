@@ -15,13 +15,14 @@ import { UpdateTicketDto } from './dto/update-ticket.dto';
 @Controller({ path: 'tickets', version: '1' })
 export class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
-  /*
-Un solo ticket
+
+  //Un solo ticket
   @Post()
   create(@Body() createTicketDto: CreateTicketDto) {
-    return this.ticketsService.create(createTicketDto);
+    return this.ticketsService.createTicket(createTicketDto);
   }
-*/
+
+  /*
   @Post()
   create(
     @Body(new ParseArrayPipe({ items: CreateTicketDto }))
@@ -35,7 +36,7 @@ Un solo ticket
       this.ticketsService.create(tickets);
     }
   }
-
+*/
   @Get()
   findAll() {
     return this.ticketsService.findAll();

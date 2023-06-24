@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSaleDto } from './dto/create-sale.dto';
 import { UpdateSaleDto } from './dto/update-sale.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Sale } from './entities/sale.entity';
 import { Repository } from 'typeorm';
+//import { ReturnSaleDto } from './dto/return-sale.dto';
 
 @Injectable()
 export class SalesService {
@@ -19,6 +20,17 @@ export class SalesService {
     }
   }
 
+  /*
+  async create(createSaleDto: CreateSaleDto): Promise<ReturnSaleDto> {
+    try {
+      const newSale = await this.salesRepository.save(createSaleDto);
+      const saleDto: ReturnSaleDto = { employee: newSale.id };
+      return saleDto;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+*/
   async findAll(): Promise<Sale[]> {
     return await this.salesRepository.find();
   }
@@ -29,10 +41,13 @@ export class SalesService {
     });
   }
 
-  async update(updateSaleDto: UpdateSaleDto) {
-    return await this.salesRepository.update(updateSaleDto.id, {
-      completedAt: new Date(),
-    });
+  async update(id: string, updateSaleDto: UpdateSaleDto) {
+    const sale: Sale = await this.findOne(id);
+    if (!sale) {
+      throw new NotFoundException(`El objeto con el ID ${id} no existe`);
+    }
+    sale.completedAt = updateSaleDto.completedAt;
+    return await this.salesRepository.save(sale);
   }
 
   async remove(id: string): Promise<void> {
