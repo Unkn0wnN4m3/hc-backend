@@ -6,7 +6,6 @@ import { Sale } from '../sales/entities/sale.entity';
 import { Ticket } from '../tickets/entities/ticket.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import { Admin } from '../admin/entities/admin.entity';
 
 ConfigModule.forRoot({
   envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -21,9 +20,11 @@ export const DataSourceConfig: DataSourceOptions = {
   username: configService.get('DB_USER'),
   password: configService.get('DB_PASSWORD'),
   database: configService.get('DB_NAME'),
-  entities: [Employee, Game, Ticket, Sale, Client, Admin],
-  migrations: ['../../migrations/1687328021855-init.ts'],
-  synchronize: true,
+  entities: [Employee, Game, Ticket, Sale, Client],
+  migrations: [
+    /*...*/
+  ],
+  synchronize: false,
   migrationsRun: false,
   logging: false,
   namingStrategy: new SnakeNamingStrategy(),

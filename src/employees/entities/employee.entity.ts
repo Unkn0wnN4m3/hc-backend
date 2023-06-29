@@ -8,6 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { ROLES } from '../../const/role.enum';
 
 @Entity({ name: 'employees' })
@@ -30,6 +31,7 @@ export class Employee {
   @Column()
   phoneNumber: number;
 
+  @Exclude()
   @Column()
   password: string;
 

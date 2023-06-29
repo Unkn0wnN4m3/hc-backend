@@ -1,4 +1,4 @@
-import { ROLES } from 'src/const/role.enum';
+import { ROLES } from '../../const/role.enum';
 import { Ticket } from '../../tickets/entities/ticket.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 

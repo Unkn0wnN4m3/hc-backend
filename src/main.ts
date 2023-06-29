@@ -1,9 +1,12 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { CORS } from './cors';
-
+import { CORS } from './const/cors';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -18,6 +21,9 @@ async function bootstrap() {
       },
     }),
   );
+
+  const reflector = app.get(Reflector);
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
 
   app.enableVersioning({
     type: VersioningType.URI,

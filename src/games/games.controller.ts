@@ -6,37 +6,48 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { GamesService } from './games.service';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { AdminAccess } from 'src/auth/decorators/admin.decorator';
+import { EmployeeAccess } from 'src/auth/decorators/employee.decorator';
 
 @Controller({ path: 'games', version: '1' })
+@UseGuards(AuthGuard, RolesGuard)
 export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
 
-  @Post()
+  @AdminAccess()
+  @Post('agergar')
   async create(@Body() body: CreateGameDto) {
     return await this.gamesService.create(body);
   }
 
-  @Get()
+  @AdminAccess()
+  @Get('all')
   findAll() {
     return this.gamesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @EmployeeAccess()
+  @Get(':gameId')
+  findOne(@Param('gameId') id: string) {
     return this.gamesService.findOneGame(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGameDto: UpdateGameDto) {
+  @AdminAccess()
+  @Patch(':gameId')
+  update(@Param('gameId') id: string, @Body() updateGameDto: UpdateGameDto) {
     return this.gamesService.update(id, updateGameDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @AdminAccess()
+  @Delete(':gameIdd')
+  remove(@Param('gameId') id: string) {
     return this.gamesService.remove(id);
   }
 }

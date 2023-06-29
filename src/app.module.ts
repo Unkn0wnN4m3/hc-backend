@@ -5,10 +5,9 @@ import { GamesModule } from './games/games.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { ClientsModule } from './clients/clients.module';
 import { SalesModule } from './sales/sales.module';
-import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { DataSourceConfig } from './config/data.source';
-import { AdminModule } from './admin/admin.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -23,7 +22,6 @@ import { AdminModule } from './admin/admin.module';
     ClientsModule,
     SalesModule,
     AuthModule,
-    AdminModule,
   ],
 })
 export class AppModule {}

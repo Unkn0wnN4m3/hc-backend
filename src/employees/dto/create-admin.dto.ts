@@ -6,9 +6,8 @@ import {
   IsString,
   IsStrongPassword,
 } from 'class-validator';
-import { ROLES } from 'src/const/role.enum';
 
-// MOVER ROLES A CONSTANTES
+import { ROLES } from '../../const/role.enum';
 
 export class CreateAdminDto {
   @IsNotEmpty()

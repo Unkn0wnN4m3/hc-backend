@@ -11,7 +11,11 @@ import {
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { AdminAccess } from 'src/auth/decorators/admin.decorator';
+import { CreateAdminDto } from './dto/create-admin.dto';
+import { EmployeeAccess } from 'src/auth/decorators/employee.decorator';
 /*
 import { HasRoles } from './entities/roles.decorator';
 import { Role } from './entities/role.enum';
@@ -19,41 +23,46 @@ import { RolesGuard } from 'src/auth/roles.guard';
 */
 
 @Controller({ path: 'employees', version: '1' })
+@UseGuards(AuthGuard, RolesGuard)
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
-  @Post()
-  create(@Body() createEmployeeDto: CreateEmployeeDto) {
-    return this.employeesService.create(createEmployeeDto);
+  @AdminAccess()
+  @Post('employee')
+  createEmployee(@Body() createEmployeeDto: CreateEmployeeDto) {
+    return this.employeesService.createEmployee(createEmployeeDto);
   }
 
-  //@UseGuards(JwtAuthGuard)
-  @Get()
+  @AdminAccess()
+  @Post('admin')
+  createAdmin(@Body() body: CreateAdminDto) {
+    return this.employeesService.createAdmin(body);
+  }
+
+  @AdminAccess()
+  @Get('all')
   findAll() {
     return this.employeesService.findAll();
   }
 
-  // NOTE: Only a user with "Admin" role can access to this endpoint
-  /* TODO REIMPLMENTAR
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @HasRoles(Role.Admin)*/
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @EmployeeAccess()
+  @Get(':employeeId')
+  findOne(@Param('employeeId') id: string) {
     return this.employeesService.findOne(id);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Patch(':id')
+  @EmployeeAccess()
+  @Patch(':employeeId')
   update(
-    @Param('id') id: string,
+    @Param('employeeId') id: string,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
   ) {
     return this.employeesService.update(id, updateEmployeeDto);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @AdminAccess()
+  @Delete(':employeeId')
+  remove(@Param('employeeId') id: string) {
     return this.employeesService.remove(id);
   }
 }

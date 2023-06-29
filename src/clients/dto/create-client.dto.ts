@@ -1,4 +1,11 @@
-import { IsEmail, IsInt, IsNotEmpty, IsPositive, Max } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsPositive,
+} from 'class-validator';
+import { ROLES } from 'src/const/role.enum';
 
 export class CreateClientDto {
   @IsNotEmpty()
@@ -16,9 +23,9 @@ export class CreateClientDto {
 
   @IsInt()
   @IsPositive()
-  @Max(10)
   phoneNumber: number;
 
   @IsNotEmpty()
-  roles: string;
+  @IsEnum(ROLES)
+  roles: ROLES;
 }
