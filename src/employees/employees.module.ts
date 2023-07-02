@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
-import { EmployeesService } from './employees.service';
-import { EmployeesController } from './employees.controller';
+import { EmployeesService } from './services/employees.service';
+import { EmployeesController } from './controllers/employees.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Employee } from './entities/employee.entity';
 import { Game } from 'src/games/entities/game.entity';

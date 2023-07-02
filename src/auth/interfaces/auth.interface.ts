@@ -20,5 +20,5 @@ export interface AuthTokenResult {
 export interface IUseToken {
   role: string;
   sub: string;
-  isExpired: boolean;
+  //isExpired: boolean;
 }

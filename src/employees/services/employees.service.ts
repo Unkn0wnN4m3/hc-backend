@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateEmployeeDto } from './dto/create-employee.dto';
-import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { CreateEmployeeDto } from '../dto/create-employee.dto';
+import { UpdateEmployeeDto } from '../dto/update-employee.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { Employee } from './entities/employee.entity';
+import { Employee } from '../entities/employee.entity';
 import { Repository } from 'typeorm';
 import { Game } from 'src/games/entities/game.entity';
 import { GamesService } from 'src/games/games.service';
-import { CreateAdminDto } from './dto/create-admin.dto';
+import { CreateAdminDto } from '../dto/create-admin.dto';
 
 @Injectable()
 export class EmployeesService {
@@ -71,6 +71,7 @@ export class EmployeesService {
         .addSelect('user.password')
         .where({ [key]: value })
         .getOne();
+
       return employee;
     } catch (error) {
       throw new Error(error.message);

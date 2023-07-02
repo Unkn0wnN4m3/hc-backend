@@ -15,15 +15,17 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { AdminAccess } from 'src/auth/decorators/admin.decorator';
 import { EmployeeAccess } from 'src/auth/decorators/employee.decorator';
+import { PublicAccess } from 'src/auth/decorators/public.decorator';
 
 @Controller({ path: 'games', version: '1' })
 @UseGuards(AuthGuard, RolesGuard)
 export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
 
-  @AdminAccess()
-  @Post('agergar')
+  @PublicAccess()
+  @Post('agregar')
   async create(@Body() body: CreateGameDto) {
+    console.log('creando');
     return await this.gamesService.create(body);
   }
 

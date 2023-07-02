@@ -7,9 +7,9 @@ import {
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
 import { PUBLIC_KEY } from 'src/const/key-decorator';
-import { EmployeesService } from 'src/employees/employees.service';
-import { useToken } from 'src/utils/use.token';
+import { EmployeesService } from 'src/employees/services/employees.service';
 import { IUseToken } from '../interfaces/auth.interface';
+import { useToken } from 'src/utils/use.token';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -37,10 +37,10 @@ export class AuthGuard implements CanActivate {
     if (typeof manageToken === 'string') {
       throw new UnauthorizedException(manageToken);
     }
-
+    /*
     if (manageToken.isExpired) {
       throw new UnauthorizedException('Token expired');
-    }
+    }*/
 
     const { sub } = manageToken;
 

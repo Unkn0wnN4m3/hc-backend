@@ -15,7 +15,7 @@ export class GamesService {
     try {
       return await this.gameRepository.save(body);
     } catch (error) {
-      throw new Error(error);
+      throw new Error('ERR: ' + error);
     }
   }
 

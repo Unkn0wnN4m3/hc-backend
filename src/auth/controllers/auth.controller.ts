@@ -1,23 +1,42 @@
-import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import { AuthDTO } from '../dto/auth.dto';
+import { Request } from 'express';
+import { AccessTokenGuard } from '../guards/access-token.guard';
+import { TokenGuard } from '../guards/token.guard';
+import { RefreshTokenGuard } from '../guards/refresh-token.guard';
 
 @Controller({ path: 'auth', version: '1' })
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
-  async login(@Body() { email, password }: AuthDTO) {
-    const employeeValidate = await this.authService.validateEmployee(
-      email,
-      password,
-    );
+  async login(@Body() body: AuthDTO) {
+    const employee = await this.authService.validateEmployee(body);
 
-    if (!employeeValidate) {
+    if (!employee) {
       throw new UnauthorizedException('Data not valid');
     }
+    return employee;
+  }
 
-    const jwt = await this.authService.generateJWT(employeeValidate);
+  @UseGuards(TokenGuard, AccessTokenGuard)
+  @Get('info')
+  async employeeInfo(@Req() req: Request) {
+    return await this.authService.employeeInfo(req);
+  }
 
-    return jwt;
+  @UseGuards(TokenGuard, RefreshTokenGuard)
+  @Get('refresh')
+  async refreshToken(@Req() req: Request) {
+    console.log('entr refres');
+    return await this.authService.refreshToken(req);
   }
 }
