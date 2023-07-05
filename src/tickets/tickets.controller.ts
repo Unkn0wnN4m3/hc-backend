@@ -18,19 +18,18 @@ import { AdminAccess } from 'src/auth/decorators/admin.decorator';
 import { EmployeeAccess } from 'src/auth/decorators/employee.decorator';
 
 @Controller({ path: 'tickets', version: '1' })
-@UseGuards(AuthGuard, RolesGuard)
+//@UseGuards(AuthGuard, RolesGuard)
 export class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
 
-  //Un solo ticket
-  /*  @Post('agregar')
+  @Post('one')
   create(@Body() createTicketDto: CreateTicketDto) {
     return this.ticketsService.createTicket(createTicketDto);
   }
-*/
-  @EmployeeAccess()
-  @Post()
-  createTicket(
+
+  //@EmployeeAccess()
+  @Post('many')
+  createTickets(
     @Body(new ParseArrayPipe({ items: CreateTicketDto }))
     tickets: CreateTicketDto[],
   ) {
@@ -38,8 +37,6 @@ export class TicketsController {
       tickets.forEach((ticket) => {
         this.ticketsService.createTicket(ticket);
       });
-    } else {
-      this.ticketsService.createTicket(tickets);
     }
   }
 

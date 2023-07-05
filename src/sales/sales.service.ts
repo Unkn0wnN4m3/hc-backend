@@ -14,7 +14,9 @@ export class SalesService {
 
   async create(createSaleDto: CreateSaleDto): Promise<Sale> {
     try {
-      return await this.salesRepository.save(createSaleDto);
+      const sale = await this.salesRepository.save(createSaleDto);
+      console.log(sale);
+      return sale;
     } catch (error) {
       throw new Error(error);
     }

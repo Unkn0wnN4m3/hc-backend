@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -23,11 +24,13 @@ export class Sale {
   @Column({ type: 'time', nullable: true })
   completedAt: string;
 
-  // NOTE: This property probably does not need to be included in the dto
   @OneToMany(() => Ticket, (ticket) => ticket.sale)
   ticket: Ticket[];
 
-  // WARN: This need to be implemented in the dto
+  //editadp, estaba andando
+  @Column()
+  employeeId: string;
   @ManyToOne(() => Employee, (employee) => employee.id)
+  @JoinColumn({ name: 'employee_id' })
   employee: Employee;
 }

@@ -6,7 +6,7 @@ export class CreateTicketDto {
   hour: string;
 
   @IsNotEmpty()
-  @IsDate()
+  //@IsDate()
   date: string;
 
   @IsNotEmpty()

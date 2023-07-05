@@ -8,6 +8,8 @@ import { Repository } from 'typeorm';
 import { Game } from 'src/games/entities/game.entity';
 import { GamesService } from 'src/games/games.service';
 import { CreateAdminDto } from '../dto/create-admin.dto';
+import { ROLES } from 'src/const/role.enum';
+import { ErrorManager } from 'src/utils/error.manager';
 
 @Injectable()
 export class EmployeesService {
@@ -20,11 +22,22 @@ export class EmployeesService {
 
   async createEmployee(body: CreateEmployeeDto): Promise<Employee> {
     try {
-      const game = await this.gameService.findOneGame(body.gameId);
-      if (!game) {
-        // Implementar trw error
-        console.log('no encotro usuario,game: ' + game);
+      const password = await bcrypt.hash(body.password, +process.env.HASH_SALT);
+
+      if (body.roles === ROLES.EMPLOYEE) {
+        const game = await this.gameService.findOneGame(body.gameId);
+        if (!game) {
+          throw new ErrorManager({
+            type: 'NOT_FOUND',
+            message: 'Juego no encontrado',
+          });
+        }
+        return await this.employeeRepository.save({
+          ...body,
+          password: password,
+        });
       }
+      /*
       const employee = new Employee();
       employee.firstName = body.firstName;
       employee.lastName = body.lastName;
@@ -37,8 +50,11 @@ export class EmployeesService {
       employee.phoneNumber = body.phoneNumber;
       employee.roles = body.roles;
       employee.game = game;
-
-      return await this.employeeRepository.save(employee);
+*/
+      return await this.employeeRepository.save({
+        ...body,
+        password: password,
+      });
     } catch (error) {
       throw new Error(error);
     }
@@ -47,7 +63,8 @@ export class EmployeesService {
   async createAdmin(body: CreateAdminDto): Promise<Employee> {
     try {
       const password = await bcrypt.hash(body.password, +process.env.HASH_SALT);
-      const admin = { ...body, password: password, game: null };
+      //const admin = { ...body, password: password, game: null };
+      const admin = { ...body, password: password };
       return await this.employeeRepository.save(admin);
     } catch (error) {
       throw new Error(error);

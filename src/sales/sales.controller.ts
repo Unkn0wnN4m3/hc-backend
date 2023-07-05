@@ -17,18 +17,19 @@ import { EmployeeAccess } from 'src/auth/decorators/employee.decorator';
 import { AdminAccess } from 'src/auth/decorators/admin.decorator';
 
 @Controller({ path: 'sales', version: '1' })
-@UseGuards(AuthGuard, RolesGuard)
+//@UseGuards(AuthGuard, RolesGuard)
 export class SalesController {
   constructor(private readonly salesService: SalesService) {}
 
-  @EmployeeAccess()
+  //@EmployeeAccess()
   @Post('agregar')
   async create(@Body() createSaleDto: CreateSaleDto) {
+    console.log(createSaleDto);
     return await this.salesService.create(createSaleDto);
   }
 
   //verificar la accesibilidad
-  @EmployeeAccess()
+  //@EmployeeAccess()
   @Patch(':saleId')
   update(@Param('saleId') id: string, @Body() updateSaleDto: UpdateSaleDto) {
     return this.salesService.update(id, updateSaleDto);
@@ -36,19 +37,19 @@ export class SalesController {
   // ENDPOINT QUE RECIBA EL ID DE LA VENTA, QUE LE ASIGNE EL TIMESTAMP FINAL PARA TERMINARLO
   // POSIBLEMENTE DEVOLVER OTRO ID, O LLAMAR AL CREATE
 
-  @AdminAccess()
+  //@AdminAccess()
   @Get('all')
   findAll() {
     return this.salesService.findAll();
   }
 
-  @AdminAccess()
+  // @AdminAccess()
   @Get(':saleId')
   findOne(@Param('saleId') id: string) {
     return this.salesService.findOne(id);
   }
 
-  @AdminAccess()
+  // @AdminAccess()
   @Delete(':saleId')
   remove(@Param('saleId') id: string) {
     return this.salesService.remove(id);

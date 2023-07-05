@@ -12,12 +12,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTokenDto } from '../dto/create-token.dto';
 import { ErrorManager } from 'src/utils/error.manager';
 import { Request } from 'express';
+import { ROLES } from 'src/const/role.enum';
+import { Game } from 'src/games/entities/game.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(Token)
     private tokenRepository: Repository<Token>,
+    @InjectRepository(Game)
+    private gameRepository: Repository<Game>,
     private readonly employeesService: EmployeesService,
   ) {}
 
@@ -56,7 +60,9 @@ export class AuthService {
 
       const decodedToken: IUseToken = useToken(token);
 
-      const employee = await this.employeesService.findOne(decodedToken.sub);
+      const employee: Employee = await this.employeesService.findOne(
+        decodedToken.sub,
+      );
       if (!employee)
         throw new ErrorManager({
           type: 'NOT_FOUND',

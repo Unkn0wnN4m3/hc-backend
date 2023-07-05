@@ -4,6 +4,7 @@ import { Ticket } from '../../tickets/entities/ticket.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -41,8 +42,11 @@ export class Employee {
   })
   roles: ROLES;
 
-  // NOTE: At least one game needs to be asigned to a new employee
+  @Column({ default: null })
+  gameId: string;
+
   @ManyToOne(() => Game, (game) => game.id)
+  @JoinColumn({ name: 'game_id' })
   game: Game;
 
   // NOTE: Maybe "ticket" column/property is not need to be included in employee dto

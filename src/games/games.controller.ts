@@ -18,12 +18,12 @@ import { EmployeeAccess } from 'src/auth/decorators/employee.decorator';
 import { PublicAccess } from 'src/auth/decorators/public.decorator';
 
 @Controller({ path: 'games', version: '1' })
-@UseGuards(AuthGuard, RolesGuard)
+//@UseGuards(AuthGuard, RolesGuard)
 export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
 
   @PublicAccess()
-  @Post('agregar')
+  @Post('game')
   async create(@Body() body: CreateGameDto) {
     console.log('creando');
     return await this.gamesService.create(body);
@@ -35,7 +35,7 @@ export class GamesController {
     return this.gamesService.findAll();
   }
 
-  @EmployeeAccess()
+  // @EmployeeAccess()
   @Get(':gameId')
   findOne(@Param('gameId') id: string) {
     return this.gamesService.findOneGame(id);
